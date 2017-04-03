@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Booli API</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="booli-styles.css">
+    <script src="https://phuonghuynh.github.io/js/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="sha1.js"></script>
+    <script src="d3.js"></script>
+  </head>
+  <body>
+    <script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
+    <script>
+      //Firebase code
+      // Initialize Firebase
+      /*
+      var config = {
+        apiKey: "AIzaSyC7LOhGAPGHpjluyPerbrFG6TAqpULdnTU",
+        authDomain: "booli-api.firebaseapp.com",
+        databaseURL: "https://booli-api.firebaseio.com",
+        storageBucket: "booli-api.appspot.com",
+        messagingSenderId: "889685160319"
+      };
+      firebase.initializeApp(config);
+      // Retreive an object representing our Firebase Realtime Database
+      var database = firebase.database();
+      */
+    </script>
+
+    <div id="container">
+    <div id="header">
+      <div class="wrapper">
+        <img src="images/houselogo.svg">
+        <h2>Earn by living</h2>
+      </div>
+    </div>
+
+    <div id="content">
+      <div class="wrapper claim">
+        <h1>Wanna know how much you earned<br> just by living in your apartment?</h1>
+      </div>
+      <div class="wrapper">
+        <h3>Type in your details</h3>
+        <form id="booliForm" action="" name="booliForm">
+          <input id="location" name="location" type="hidden" value="stockholm">
+          <input id="limit" name="limit" type="hidden" value="500">
+
+          <div>
+            <label for="selectEstateType">Select estate type:</label>
+            <select id="selectEstateType" name="selectEstateType" class="required">
+              <option value="" disabled selected>Choose an esate type</option>
+            </select>
+            <label class="error" for="selectEstateType" id="selectEstateType_error">This field is required.</label>
+          </div>
+
+          <div>
+            <label for="selectArea">Select area:</label>
+            <select id="selectArea" name="selectArea" class="required">
+              <option value="" disabled selected>Choose an area</option>
+            </select>
+            <label class="error" for="selectArea" id="selectArea_error">This field is required.</label>
+          </div>
+
+          <div>
+            <label for="selectYearFromTo">Select year:</label>
+            <select id="selectYearFrom" name="selectYearFrom" class="year">
+              <option value="" disabled selected>From</option>
+            </select>
+            <select id="selectYearTo" name="selectYearTo" class="year">
+              <option value="" disabled selected>To</option>
+            </select>
+            <label class="error" for="selectYearFromTo" id="selectYearFromTo_error">This field is required.</label>
+          </div>
+
+          <div>
+            <label for="selectEstateSize">Select size:</label>
+            <select id="selectEstateSize" name="selectEstateSize" class="required">
+              <option value="" disabled selected>Choose size</option>
+            </select>
+            <label class="error" for="selectEstateSize" id="selectEstateSize_error">This field is required.</label>
+          </div>
+
+          <input value="Search" type="submit">
+
+        </form>
+
+        <!--
+        <div id="table-from">
+          <div id="table-header">
+            <div class="cell header-location">Location</div>
+            <div class="cell header-price">Price (kr)</div>
+            <div class="cell header-area">Area (m2)</div>
+          </div>
+          <div id="table-result">
+            <div class="cell result-location"></div>
+            <div class="cell result-price"></div>
+            <div class="cell result-area"></div>
+          </div>
+        </div>
+
+        <div id="table-to">
+          <div id="table-header">
+            <div class="cell header-location">Location</div>
+            <div class="cell header-price">Price (kr)</div>
+            <div class="cell header-area">Area (m2)</div>
+          </div>
+          <div id="table-result">
+            <div class="cell result-location"></div>
+            <div class="cell result-price"></div>
+            <div class="cell result-area"></div>
+          </div>
+        </div>
+        -->
+
+        <!--<div class="bubbleChart"/>-->
+        <div id="result">
+          <p>Mellan åren <span class="display-years-from"></span>-<span class="display-years-to"></span> har <span class="display-type"></span> med <span class="display-size"></span> rum i <span class="display-area"></span> i snitt ökat med:</p>
+          <p class="center"><span class="display-percent"></span> <img height="26" src="images/arrowup.png"></p>
+        </div>
+        <div id="error-message">
+          <img height="110" src="images/felmeddelande.png">
+        </div>
+        <svg id="visualisation" width="650" height="325"></svg>
+      </div>
+    </div>
+
+    <div id="footer">
+      <div class="wrapper"></div>
+    </div>
+  </div>
+
+    <script src="booli-functions.js"></script>
+    <script>
+  		// When the page has loaded, this function will be called.
+  		$(function () {
+        $('#result').hide();
+        $('#visualisation').hide();
+        $('#error-message').hide();
+        getAllparametersForLocation('stockholm', 500);
+        propagateYears("selectYearFrom", 2013, 2017);
+  		});
+    </script>
+  </body>
+</html>
